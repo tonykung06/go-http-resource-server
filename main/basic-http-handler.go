@@ -70,6 +70,7 @@ func (this *MyBufferedIoHandler) ServeHTTP(w http.ResponseWriter, req *http.Requ
 	path := "public/" + req.URL.Path
 	f, err := os.Open(path)
 	if err == nil {
+		defer f.Close()
 		bufferedReader := bufio.NewReader(f)
 		var contentType string
 		if strings.HasSuffix(path, ".css") {
